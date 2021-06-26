@@ -95,7 +95,9 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
               ),
               bottomNavigationBar: SetLabelButtons(
                 primaryLabel: 'Inserir código do boleto',
-                primaryCb: () {},
+                primaryCb: () {
+                  Navigator.pushNamed(context, '/insert_boleto');
+                },
                 secondaryLabel: 'Adicionar da galeria',
                 secondaryCb: () {},
               ),
@@ -108,8 +110,10 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
                   return Align(
                       alignment: Alignment.bottomLeft,
                       child: BottomSheetWidget(
-                        title: 'Não foi possível identificar um código de barras.',
-                        subTitle: 'Tente escanear novamente ou digite o código do seu boleto.',
+                        title:
+                            'Não foi possível identificar um código de barras.',
+                        subTitle:
+                            'Tente escanear novamente ou digite o código do seu boleto.',
                         primaryLabel: 'Escanear novamente',
                         secondaryLabel: 'Digitar código',
                         primaryCb: () {

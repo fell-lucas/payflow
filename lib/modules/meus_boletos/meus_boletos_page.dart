@@ -1,3 +1,4 @@
+import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
 import 'package:payflow/shared/models/boleto_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
@@ -18,54 +19,58 @@ class _MeusBoletosPageState extends State<MeusBoletosPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          children: [
-            Container(
-              color: AppColors.primary,
-              height: 35,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: ValueListenableBuilder<List<BoletoModel>>(
-                valueListenable: controller.boletosNotifier,
-                builder: (_, boletos, __) =>
-                    BoletoInfoPage(amount: boletos.length),
-              ),
-            ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Stack(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 24),
-                child: Row(
-                  children: [
-                    Text(
-                      'Meus boletos',
-                      style: TextStyles.titleBoldHeading,
-                    ),
-                  ],
-                ),
+              Container(
+                color: AppColors.primary,
+                height: 35,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Divider(
-                  thickness: 1,
-                  height: 1,
-                  color: AppColors.stroke,
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: ValueListenableBuilder<List<BoletoModel>>(
+                  valueListenable: controller.boletosNotifier,
+                  builder: (_, boletos, __) => AnimatedCard(
+                    direction: AnimatedCardDirection.top,
+                    child: BoletoInfoPage(amount: boletos.length),
+                  ),
                 ),
               ),
-              BoletoListWidget(
-                controller: controller,
-              )
             ],
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 24),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Meus boletos',
+                        style: TextStyles.titleBoldHeading,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Divider(
+                    thickness: 1,
+                    height: 1,
+                    color: AppColors.stroke,
+                  ),
+                ),
+                BoletoListWidget(
+                  controller: controller,
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
